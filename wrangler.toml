@@ -1,6 +1,9 @@
 name = "url-shortener"
 main = "src/index.ts"
 compatibility_date = "2023-01-05"
+routes = [
+	{ pattern = "rob-3.com", custom_domain = true }
+]
 kv_namespaces = [
 	{ binding = "urlShortener", id = "68ca28eb965a42838e55c2347d4c384e" }
 ]
