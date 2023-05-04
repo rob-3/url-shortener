@@ -46,11 +46,19 @@ export default {
 						statusText: "400 Bad Request"
 					});
 				}
-				await env.urlShortener.put(shortName, target);
-				return new Response("200 OK", {
-					status: 200,
-					statusText: "200 OK"
-				});
+				const exists = await env.urlShortener.get(shortName) !== null;
+				if (!exists) {
+					await env.urlShortener.put(shortName, target);
+					return new Response("200 OK", {
+						status: 200,
+						statusText: "200 OK"
+					});
+				} else {
+					return new Response(`Short url ${shortName} already exists`, {
+						status: 400,
+						statusText: "400 Bad Request"
+					});
+				}
 			}
 			const redirectUrl = await env.urlShortener.get(url.pathname.slice(1));
 			if (!redirectUrl) {
